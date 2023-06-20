@@ -34,4 +34,5 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            liteacz/whalesome:${{ steps.get_version.outputs.VERSION }}
+            sha512man/whalesome:${{ steps.get_version.outputs.VERSION }}
+

@@ -21,7 +21,7 @@ tmp=$(mktemp)
 echo "${replace_content}" > "${tmp}"
 
 sed -i \
-    -e "/\# litea.nginx.placeholders.static_http_errors/r ${tmp}" \
+    -e "/\# whalesome.nginx.placeholders.static_http_errors/r ${tmp}" \
     -e "//d" \
     /etc/nginx/nginx.conf
 

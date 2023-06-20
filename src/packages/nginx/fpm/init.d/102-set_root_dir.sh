@@ -7,5 +7,5 @@ mkdir -p "${NGINX_ROOT_DIR}"
 replace_content="root ${NGINX_ROOT_DIR};"
 
 sed -i \
-    -e "s~\# litea.nginx.placeholders.server_root_dir~${replace_content}~g" \
+    -e "s~\# whalesome.nginx.placeholders.server_root_dir~${replace_content}~g" \
     /etc/nginx/nginx.conf

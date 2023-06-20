@@ -30,7 +30,7 @@ echo "${replace_content}" > "${tmp}"
 echo "Setting fastcgi pass configuration"
 
 sed -i \
-    -e "/\# litea.nginx.placeholders.fastcgi_pass/r ${tmp}" \
+    -e "/\# whalesome.nginx.placeholders.fastcgi_pass/r ${tmp}" \
     -e "//d" \
     /etc/nginx/nginx.conf;
 

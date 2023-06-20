@@ -3,7 +3,7 @@
 case "${1}" in
     "build-local")
         docker build \
-            -t "liteacz/whalesome:local" \
+            -t "sha512man/whalesome:local" \
             -f "Dockerfile" \
         .
     ;;
@@ -14,7 +14,7 @@ case "${1}" in
         docker run \
             -it \
             --rm \
-            "liteacz/whalesome:local" \
+            "sha512man/whalesome:local" \
             ${@}
         ;;
 

@@ -1,0 +1,62 @@
+#!/usr/bin/env sh
+#
+# w84it.sh
+#
+set -e
+
+ROOT_PATH=$(cd $(dirname $0) && pwd)
+if [ -z "${ROOT_PATH}" ]; then
+  # error; for some reason, the path is not accessible
+  # to the script (e.g. permissions re-evaled after suid)
+  echo 'ERR: Script path is for some reason not accessible' >&2
+  exit 1 # fail
+fi
+cd "${ROOT_PATH}"
+
+###Functions
+get_os() {
+  case "$(uname -s)" in
+    Linux*)  echo "linux";;
+    Darwin*) echo "darwin";;
+    *)       echo "unknown";;
+  esac
+}
+
+is_os_alpine() {
+  if [ "$(get_os)" = "linux" ]; then
+    if [ -f "/etc/alpine-release" ]; then
+      true
+    else
+      false
+    fi
+  else
+    false
+  fi
+}
+
+check_for_timeout() {
+  if ! [ -x "$(command -v timeout)" ]; then
+    if [ "$(get_os)" = "darwin" ]; then
+      echo "ERR: timeout is not installed. Use for example Homebrew and install coreutils. See https://formulae.brew.sh/formula/coreutils" >&2
+    else
+      echo "ERR: timeout is not installed. Use your distro's package manager to install it" >&2
+    fi
+    exit 1
+  fi
+}
+
+check_for_bash() {
+  if ! [ -x "$(command -v bash)" ]; then
+    echo "ERR: bash is not installed. Use your distro's package manager to install it" >&2
+    exit 1
+  fi
+}
+###/Functions
+
+if is_os_alpine; then
+  "./w84it.alpine.sh" "$@"
+else
+  check_for_bash
+  check_for_timeout
+  "./w84it.bash.sh" "$@"
+fi

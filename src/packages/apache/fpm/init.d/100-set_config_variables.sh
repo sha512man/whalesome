@@ -4,7 +4,7 @@
 [ -z "${FPM_HOST}" ] && FPM_HOST="php-fpm"
 [ -z "${FPM_PORT}" ] && FPM_PORT="9000"
 [ -z "${FPM_DISABLE_REUSE}" ] && FPM_DISABLE_REUSE="On"
-[ -z "${ADMIN_EMAIL}" ] && ADMIN_EMAIL="info@litea.cz"
+[ -z "${ADMIN_EMAIL}" ] && ADMIN_EMAIL="admin@example.com"
 [ -z "${ERRORS_DIR}" ] && ERRORS_DIR="/opt/whalesome/packages/apache/fpm/errors"
 [ -z "${PROCESS_USER}" ] && PROCESS_USER="www-data"
 [ -z "${PROCESS_GROUP}" ] && PROCESS_GROUP="www-data"

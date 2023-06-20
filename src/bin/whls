@@ -2,7 +2,7 @@
 # https://google.github.io/styleguide/shellguide.html#s7-naming-conventions
 
 CONTAINER_INIT_DIRECTORY="/opt/whalesome/init.d"
-LITEA_INSTALLED_PACKAGES="/opt/whalesome/installed_packages.txt"
+WHALESOME_INSTALLED_PACKAGES="/opt/whalesome/installed_packages.txt"
 
 preset_laravel () {
     echo "Installing required system libraries and php extensions" \
@@ -36,9 +36,9 @@ success () {
 
 install_package () {
     pkg="${1}"
-    touch "${LITEA_INSTALLED_PACKAGES}"
+    touch "${WHALESOME_INSTALLED_PACKAGES}"
 
-    if grep -Fxq "${pkg}" "${LITEA_INSTALLED_PACKAGES}"; then
+    if grep -Fxq "${pkg}" "${WHALESOME_INSTALLED_PACKAGES}"; then
         warning "the package ${pkg} has already been installed"
         exit 0
     fi
@@ -68,7 +68,7 @@ install_package () {
 
     success "${pkg} installed successfully"
 
-    echo "${pkg}" >> "${LITEA_INSTALLED_PACKAGES}"
+    echo "${pkg}" >> "${WHALESOME_INSTALLED_PACKAGES}"
 }
 
 # ================== #
