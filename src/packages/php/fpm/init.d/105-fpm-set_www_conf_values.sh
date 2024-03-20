@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -ex
+
 [ -z "${WWW_POOL_NAME}" ] && WWW_POOL_NAME="www"
 [ -z "${WWW_USER}" ] && WWW_USER="www-data"
 [ -z "${WWW_GROUP}" ] && WWW_GROUP="www-data"

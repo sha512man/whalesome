@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -ex
+
 mkdir -p \
     /usr/local/etc/php \
     /usr/local/etc/php/php-fpm.d

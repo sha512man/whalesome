@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -ex
+
 replace_content=""
 
 [ -z "${FPM_HOST}" ] && FPM_HOST="php-fpm"

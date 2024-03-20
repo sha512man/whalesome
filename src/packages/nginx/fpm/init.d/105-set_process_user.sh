@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -ex
+
 [ -z "${NGINX_PROCESS_USER}" ] && NGINX_PROCESS_USER="www-data"
 
 replace_content="user ${NGINX_PROCESS_USER} ${NGINX_PROCESS_USER};"

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -ex
+
 [ -z "${NGINX_ROOT_DIR}" ] && NGINX_ROOT_DIR="/var/www/public"
 
 mkdir -p "${NGINX_ROOT_DIR}"

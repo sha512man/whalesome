@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -ex
+
 cores=$(nproc --all)
 defaultConnections="4096"
 

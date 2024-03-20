@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -ex
+
 [ -z "${APACHE_ROOT_DIR}" ] && APACHE_ROOT_DIR="/var/www/public"
 [ -z "${FPM_HOST}" ] && FPM_HOST="php-fpm"
 [ -z "${FPM_PORT}" ] && FPM_PORT="9000"

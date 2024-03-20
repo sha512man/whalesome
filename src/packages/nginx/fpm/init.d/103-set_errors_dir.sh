@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -ex
+
 [ -z "${HTTP_ERRORS_DIR}" ] && HTTP_ERRORS_DIR="/opt/whalesome/packages/nginx/fpm/errors"
 
 mkdir -p "${HTTP_ERRORS_DIR}"
