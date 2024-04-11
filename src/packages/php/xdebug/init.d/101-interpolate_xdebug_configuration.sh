@@ -13,7 +13,7 @@ tpl /opt/whalesome/packages/php/xdebug/xdebug.ini.tpl \
   xdebugClientHost=$XDEBUG_CLIENT_HOST \
   xdebugClientPort=$XDEBUG_CLIENT_PORT \
   xdebugRemoteHandler=$XDEBUG_REMOTE_HANDLER \
-  xdebugConnectBack=$XDEBUG_CONNECT_BACK \
+  xdebugDiscoverClientHost=$XDEBUG_DISCOVER_CLIENT_HOST \
   xdebugOutputDir=$XDEBUG_OUTPUT_DIR \
   xdebugIdeKey=$XDEBUG_IDE_KEY \
   xdebugProfilerOutputName=$XDEBUG_PROFILER_OUTPUT_NAME > /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
