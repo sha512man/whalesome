@@ -31,4 +31,3 @@ if [ ! -z "${RUN_AS}" ] ; then
 else
     exec "${@}"
 fi
-,
