@@ -1,0 +1,23 @@
+#!/bin/sh
+
+PACKAGES="$@"
+
+# Detect the OS
+OS=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
+
+case "$OS" in
+  *Debian*)
+    echo "Debian-based system detected"
+    apt-get update -y
+    apt-get install -y $PACKAGES
+    ;;
+
+  *Alpine*)
+    echo "Alpine Linux system detected"
+    apk update
+    apk add --no-cache $PACKAGES
+    ;;
+
+  *)
+    echo "Unsupported distribution ${OS}"
+esac

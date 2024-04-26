@@ -1,0 +1,1 @@
+# Whalesome package cli/zsh
