@@ -5,6 +5,7 @@
 [ -z "${RUN_INIT_SCRIPTS}" ] && RUN_INIT_SCRIPTS="1"
 [ -z "${RUN_CUSTOM_SCRIPTS}" ] && RUN_CUSTOM_SCRIPTS="1"
 [ -z "${CUSTOM_SCRIPTS_PATH}" ] && CUSTOM_SCRIPTS_PATH="/opt/whalesome/user-init.d"
+[ -z "${INIT_DEBUG}" ] && INIT_DEBUG="0"
 
 mkdir -p "${APP_DIR}"
 cd "${APP_DIR}"
@@ -16,6 +17,11 @@ fi
 if [ ! -z "${RUN_INIT_SCRIPTS}" ] && [ "${RUN_INIT_SCRIPTS}" = "1" ]; then
     for filename in "${INIT_DIR}"/*.sh; do
         if [ -f "${filename}" ]; then
+
+            if [ "${INIT_DEBUG}" = "2" ]; then
+                echodt "INFO: run init script ${filename}"
+            fi
+
             sh "${filename}"
 
             if [ "${?}" != 0 ]; then
@@ -26,7 +32,20 @@ if [ ! -z "${RUN_INIT_SCRIPTS}" ] && [ "${RUN_INIT_SCRIPTS}" = "1" ]; then
     done
 fi
 
+if [ "${INIT_DEBUG}" = "2" ]; then
+    echodt "INFO: All init scripts completed"
+fi
+
+if [ "${INIT_DEBUG}" = "1" ]; then
+    echodt "INFO: Starting service: ${@}"
+fi
+
 if [ ! -z "${RUN_AS}" ] ; then
+
+    if [ "${INIT_DEBUG}" = "3" ]; then
+        echodt "INFO: exec su - ${RUN_AS} sh -c ${@}"
+    fi
+
     exec su - "${RUN_AS}" sh -c "${@}"
 else
     exec "${@}"
