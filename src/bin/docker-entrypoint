@@ -19,7 +19,7 @@ if [ ! -z "${RUN_INIT_SCRIPTS}" ] && [ "${RUN_INIT_SCRIPTS}" = "1" ]; then
             sh "${filename}"
 
             if [ "${?}" != 0 ]; then
-                echo "ERROR: init script ${filename} exitted with non-zero code"
+                echodt "ERROR: init script ${filename} exitted with non-zero code"
                 exit 1
             fi
         fi
