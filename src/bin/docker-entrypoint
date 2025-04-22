@@ -43,10 +43,10 @@ fi
 if [ ! -z "${RUN_AS}" ] ; then
 
     if [ "${INIT_DEBUG}" = "3" ]; then
-        echodt "INFO: exec su - ${RUN_AS} sh -c ${@}"
+        echodt "INFO: sudo --user=${RUN_AS} --group=${RUN_AS} ${@}"
     fi
 
-    exec su - "${RUN_AS}" sh -c "${@}"
+    sudo --user="${RUN_AS}" --group=${RUN_AS} "${@}"
 else
     exec "${@}"
 fi
