@@ -4,7 +4,7 @@ set -e
 
 CHOWN_OPTIONS="-L";
 
-if [ "${INIT_DEBUG}" = "2" ]; then
+if [ "${INIT_DEBUG}" -ge "2" ]; then
     CHOWN_OPTIONS="-Lc"
 fi
 

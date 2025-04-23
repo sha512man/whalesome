@@ -14,17 +14,16 @@ if [ -d "${CUSTOM_SCRIPTS_PATH}" ] && [ "${RUN_CUSTOM_SCRIPTS}" = "1" ]; then
     cp -r "${CUSTOM_SCRIPTS_PATH}/." "${INIT_DIR}"
 fi
 
-if [ ! -z "${RUN_INIT_SCRIPTS}" ] && [ "${RUN_INIT_SCRIPTS}" = "1" ]; then
+if [ -n "${RUN_INIT_SCRIPTS}" ] && [ "${RUN_INIT_SCRIPTS}" = "1" ]; then
     for filename in "${INIT_DIR}"/*.sh; do
         if [ -f "${filename}" ]; then
 
-            if [ "${INIT_DEBUG}" = "2" ]; then
+            if [ "${INIT_DEBUG}" -ge "2" ]; then
                 echodt "INFO: run init script ${filename}"
             fi
 
-            sh "${filename}"
-
-            if [ "${?}" != 0 ]; then
+            if ! sh "${filename}"
+            then
                 echodt "ERROR: init script ${filename} exitted with non-zero code"
                 exit 1
             fi
@@ -32,21 +31,21 @@ if [ ! -z "${RUN_INIT_SCRIPTS}" ] && [ "${RUN_INIT_SCRIPTS}" = "1" ]; then
     done
 fi
 
-if [ "${INIT_DEBUG}" = "2" ]; then
+if [ "${INIT_DEBUG}" -ge "2" ]; then
     echodt "INFO: All init scripts completed"
 fi
 
-if [ "${INIT_DEBUG}" = "1" ]; then
-    echodt "INFO: Starting service: ${@}"
+if [ "${INIT_DEBUG}" -ge "1" ]; then
+    echodt "INFO: Starting service: ${*}"
 fi
 
-if [ ! -z "${RUN_AS}" ] ; then
+if [ -n "${RUN_AS}" ] ; then
 
-    if [ "${INIT_DEBUG}" = "3" ]; then
-        echodt "INFO: sudo --user=${RUN_AS} --group=${RUN_AS} ${@}"
+    if [ "${INIT_DEBUG}" -ge "3" ]; then
+        echodt "INFO: sudo --user=${RUN_AS} --group=${RUN_AS} ${*}"
     fi
 
-    sudo --user="${RUN_AS}" --group=${RUN_AS} "${@}"
+    sudo --user="${RUN_AS}" --group="${RUN_AS}" "${@}"
 else
     exec "${@}"
 fi
