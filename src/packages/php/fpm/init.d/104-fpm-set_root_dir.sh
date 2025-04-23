@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -ex
+set -e
 
 [ -z "${APP_DIR}" ] && APP_DIR="/var/www"
 [ -z "${FPM_ROOT_DIR}" ] && FPM_ROOT_DIR="public"

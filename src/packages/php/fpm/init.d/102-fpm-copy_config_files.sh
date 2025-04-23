@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -ex
+set -e
 
 mkdir -p \
     /usr/local/etc/php \

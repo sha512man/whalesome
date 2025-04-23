@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -ex
+set -e
 
 HOST_IP=$(ip route show default | awk '/default/ {print $3}')
 

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -ex
+set -e
 
 [ -z "${WWW_POOL_NAME}" ] && WWW_POOL_NAME="www"
 [ -z "${WWW_USER}" ] && WWW_USER="www-data"

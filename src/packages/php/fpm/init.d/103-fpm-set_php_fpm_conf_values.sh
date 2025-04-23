@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -ex
+set -e
 
 [ -z "${FPM_ERROR_LOG_DIR}" ] && FPM_ERROR_LOG_DIR="/dev/stderr"
 
