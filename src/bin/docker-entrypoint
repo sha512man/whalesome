@@ -18,12 +18,9 @@ if [ -n "${RUN_INIT_SCRIPTS}" ] && [ "${RUN_INIT_SCRIPTS}" = "1" ]; then
     for filename in "${INIT_DIR}"/*.sh; do
         if [ -f "${filename}" ]; then
 
-            if [ "${INIT_DEBUG}" -ge "2" ]; then
-                echodt "INFO: run init script ${filename}"
-            fi
+            log "INFO: run init script ${filename}" 2
 
-            if ! sh "${filename}"
-            then
+            if ! sh "${filename}" ; then
                 echodt "ERROR: init script ${filename} exitted with non-zero code"
                 exit 1
             fi
@@ -31,19 +28,11 @@ if [ -n "${RUN_INIT_SCRIPTS}" ] && [ "${RUN_INIT_SCRIPTS}" = "1" ]; then
     done
 fi
 
-if [ "${INIT_DEBUG}" -ge "2" ]; then
-    echodt "INFO: All init scripts completed"
-fi
-
-if [ "${INIT_DEBUG}" -ge "1" ]; then
-    echodt "INFO: Starting service: ${*}"
-fi
+log "INFO: All init scripts completed" 2
+log "INFO: Starting service: ${*}" 1
 
 if [ -n "${RUN_AS}" ] ; then
-
-    if [ "${INIT_DEBUG}" -ge "3" ]; then
-        echodt "INFO: sudo --user=${RUN_AS} --group=${RUN_AS} ${*}"
-    fi
+    log "INFO: sudo --user=${RUN_AS} --group=${RUN_AS} ${*}" 3
 
     sudo --user="${RUN_AS}" --group="${RUN_AS}" "${@}"
 else
