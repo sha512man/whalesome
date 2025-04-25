@@ -14,43 +14,17 @@ List of available packages:
 - `php/fpm` - prepare php fpm
 - `php/xdebug` - install and prepare [xdebug](https://xdebug.org/)
 
-In `Dockerfile`:
+## Real example
 
-```dockerfile
-FROM sha512man/whalesome
+### PHP + Nginx
 
-...
+Look in the folder [examples/php-nginx](./examples/php-nginx), or just try:
 
-COPY --from=sha512man/whalesome /opt/whalesome /opt/whalesome
-
-...
-
-RUN mv /opt/whalesome/bin/* /usr/local/bin \
-    && whls install php/fpm
+```shell
+cd examples/php-nginx && docker compose up -d
 ```
 
-And in `docker-compose.yml`:
-
-```yaml
-services:
-    php:
-        build:
-            context: .
-            target: dev
-            dockerfile: ./docker/nginx/Dockerfile
-        ports:
-            - "8000:80"
-        environment:
-            USER: "www-data:501"
-            RUN_AS: "www-data"
-            INIT_DEBUG: "1"
-        cap_drop:
-            - ALL
-        cap_add:
-            - SETGID
-            - SETUID
-            - CHOWN
-```
+And look [localhost:8000](http://localhost:8000)
 
 ## Global variables
 
@@ -63,3 +37,11 @@ services:
 - `RUN_INIT_SCRIPTS` - Set 0 to not run init scripts, _default is `1`_
 - `USER` - Set user to create user with specific UID, group with specific GUI, homedir and start subprocess, eg: `www-data:501` (on Mac), `www-data:1000` (on Linux),  _default is empty_
 
+## Rootless
+
+Now are prepared these packages:
+
+- `nginx/fpm`
+- `php/fpm`
+
+the other packages will be preparing

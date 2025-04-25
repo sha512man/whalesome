@@ -1,0 +1,47 @@
+services:
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./DockerfileNginx
+    ports:
+      - "8000:80"
+    environment:
+      USER: "www-data:501" # Typically 501 for Mac users and 1000 on Linux distributions
+      RUN_AS: "www-data"
+      FPM_HOST: php
+      INIT_DEBUG: "3"
+    volumes:
+      - ./public:/var/www/public
+    cap_drop: # Following the principle of least privilege.
+      - ALL
+    cap_add: # These capabilities are needed for RUN_AS
+      - SETGID
+      - SETUID
+      - CHOWN
+      - FOWNER
+    security_opt:
+      - no-new-privileges:true
+    stop_grace_period: 1s # If you run a main process like `www-data` user (set by `RUN_AS`). There is a problem with passing the SIGTERM signal. This will shorten the shutdown.
+    depends_on:
+      - php
+
+  php:
+    build:
+      context: .
+      dockerfile: ./DockerfilePhp
+    environment:
+      USER: "www-data:501"
+      RUN_AS: "www-data"
+      INIT_DEBUG: "3"
+    volumes:
+      - .:/var/www
+    cap_drop:
+      - ALL
+    cap_add:
+      - SETGID
+      - SETUID
+      - CHOWN
+    security_opt:
+      - no-new-privileges:true
+    stop_grace_period: 1s
