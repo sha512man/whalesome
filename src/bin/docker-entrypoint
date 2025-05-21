@@ -5,6 +5,7 @@
 [ -z "${RUN_INIT_SCRIPTS}" ] && RUN_INIT_SCRIPTS="1"
 [ -z "${RUN_CUSTOM_SCRIPTS}" ] && RUN_CUSTOM_SCRIPTS="1"
 [ -z "${CUSTOM_SCRIPTS_PATH}" ] && CUSTOM_SCRIPTS_PATH="/opt/whalesome/user-init.d"
+[ -z "${INIT_DEBUG}" ] && INIT_DEBUG="0"
 
 mkdir -p "${APP_DIR}"
 cd "${APP_DIR}"
@@ -13,21 +14,27 @@ if [ -d "${CUSTOM_SCRIPTS_PATH}" ] && [ "${RUN_CUSTOM_SCRIPTS}" = "1" ]; then
     cp -r "${CUSTOM_SCRIPTS_PATH}/." "${INIT_DIR}"
 fi
 
-if [ ! -z "${RUN_INIT_SCRIPTS}" ] && [ "${RUN_INIT_SCRIPTS}" = "1" ]; then
+if [ -n "${RUN_INIT_SCRIPTS}" ] && [ "${RUN_INIT_SCRIPTS}" = "1" ]; then
     for filename in "${INIT_DIR}"/*.sh; do
         if [ -f "${filename}" ]; then
-            sh "${filename}"
 
-            if [ "${?}" != 0 ]; then
-                echo "ERROR: init script ${filename} exitted with non-zero code"
+            log "INFO: run init script ${filename}" 2
+
+            if ! sh "${filename}" ; then
+                echodt "ERROR: init script ${filename} exitted with non-zero code"
                 exit 1
             fi
         fi
     done
 fi
 
-if [ ! -z "${RUN_AS}" ] ; then
-    exec su - "${RUN_AS}" sh -c "${@}"
+log "INFO: All init scripts completed" 2
+log "INFO: Starting service: ${*}" 1
+
+if [ -n "${RUN_AS}" ] ; then
+    log "INFO: sudo --user=${RUN_AS} --group=${RUN_AS} ${*}" 3
+
+    sudo --user="${RUN_AS}" --group="${RUN_AS}" "${@}"
 else
     exec "${@}"
 fi

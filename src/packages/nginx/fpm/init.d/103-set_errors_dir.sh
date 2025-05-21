@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -ex
+set -e
 
 [ -z "${HTTP_ERRORS_DIR}" ] && HTTP_ERRORS_DIR="/opt/whalesome/packages/nginx/fpm/errors"
 

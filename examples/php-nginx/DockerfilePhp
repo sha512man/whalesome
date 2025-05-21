@@ -1,0 +1,17 @@
+FROM php:8.4.6-fpm-alpine3.21
+
+COPY --from=mlocati/php-extension-installer:2.7.28 /usr/bin/install-php-extensions /usr/local/bin/
+COPY --from=sha512man/whalesome /opt/whalesome /opt/whalesome
+
+RUN mv /opt/whalesome/bin/* /usr/local/bin
+
+RUN apk add --no-cache --upgrade --no-interactive --no-progress \
+        sudo \
+    && whls install php/fpm php/xdebug
+
+WORKDIR /var/www
+
+EXPOSE 8000
+
+ENTRYPOINT ["docker-entrypoint"]
+CMD ["php-fpm"]

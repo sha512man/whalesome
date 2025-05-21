@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -ex
+set -e
 
 [ -z "${NGINX_PROCESS_USER}" ] && NGINX_PROCESS_USER="www-data"
 

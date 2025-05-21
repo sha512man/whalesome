@@ -1,14 +1,12 @@
 #!/bin/sh
 
-set -ex
+set -e
 
-mkdir -p \
-    /usr/local/etc/php \
-    /usr/local/etc/php/php-fpm.d
+[ -z "${FPM_PHP_INI_ENV}" ] && FPM_PHP_INI_ENV="production"
 
-cp /opt/whalesome/packages/php/fpm/php-fpm.conf \
-    /opt/whalesome/packages/php/fpm/php.ini \
-    /usr/local/etc/php
+PHP_INI_FILE_ENV="${PHP_INI_DIR}/php.ini-${FPM_PHP_INI_ENV}"
 
-cp /opt/whalesome/packages/php/fpm/www.conf \
-    /usr/local/etc/php/php-fpm.d
+if [ -f "${PHP_INI_FILE_ENV}" ]; then
+    log "INFO: copy ${PHP_INI_FILE_ENV} into ${PHP_INI_DIR}" 2
+    cp "${PHP_INI_FILE_ENV}" "${PHP_INI_DIR}/php.ini"
+fi

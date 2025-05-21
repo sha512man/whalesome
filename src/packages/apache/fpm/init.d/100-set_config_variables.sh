@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -ex
+set -e
 
 [ -z "${APACHE_ROOT_DIR}" ] && APACHE_ROOT_DIR="/var/www/public"
 [ -z "${FPM_HOST}" ] && FPM_HOST="php-fpm"

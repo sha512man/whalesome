@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+set -e
+
+message="${1}"
+level="${2}"
+
+[ -z "${level}" ] && level="0"
+
+if [ "${INIT_DEBUG}" -ge "${level}" ]; then
+  echodt "${message}"
+fi
