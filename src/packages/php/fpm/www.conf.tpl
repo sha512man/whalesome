@@ -1,7 +1,9 @@
-[www]
+[global]
 
 error_log = {{ or .fpmErrorLogDir "/dev/stderr" }}
 daemonize = no
+
+[www]
 
 user = {{ or .fpmRuntimeUser "www-data" }}
 group = {{ or .fpmRuntimeGroup "www-data" }}

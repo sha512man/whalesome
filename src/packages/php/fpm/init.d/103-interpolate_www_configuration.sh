@@ -2,8 +2,7 @@
 
 set -e
 
-mkdir -p \
-    "${PHP_INI_DIR}/php-fpm.d"
+PHP_FPM_CONFIG_DIR="/usr/local/etc/php-fpm.d"
 
 tpl /opt/whalesome/packages/php/fpm/www.conf.tpl \
   fpmErrorLogDir="${FPM_ERROR_LOG_DIR}" \
@@ -15,9 +14,9 @@ tpl /opt/whalesome/packages/php/fpm/www.conf.tpl \
   fpmPmMinSpareServers="${FPM_PM_MIN_SPARE_SERVRES}" \
   fpmPmMaxSpareServers="${FPM_PM_MAX_SPARE_SERVRES}" \
   fpmAccessLog="${FPM_ACCESS_LOG}" \
-  fpmRootDir="${FPM_ROOT_DIR}" > "${PHP_INI_DIR}/php-fpm.d/www.conf"
+  fpmRootDir="${FPM_ROOT_DIR}" > "${PHP_FPM_CONFIG_DIR}/www.conf"
 
 if [ "${INIT_DEBUG}" -ge "3" ]; then
     echodt "DEBUG: print generated www.conf"
-    cat "${PHP_INI_DIR}/php-fpm.d/www.conf"
+    cat "${PHP_FPM_CONFIG_DIR}/www.conf"
 fi
