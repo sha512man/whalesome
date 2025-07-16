@@ -30,7 +30,11 @@ tpl /opt/whalesome/packages/nginx/fpm/nginx.conf.tpl \
   defaultConnections="${DEFAULT_CONNECTIONS}" \
   dnsResolver="${DNS_RESOLVER}" \
   fpmHost="${FPM_HOST}" \
+  fpmPingPath="${FPM_PING_PATH}" \
   fpmPort="${FPM_PORT}" \
+  fpmStatusListenPort="${FPM_STATUS_LISTEN_PORT}" \
+  fpmStatusPath="${FPM_STATUS_PATH}" \
+  statusAllowIp="${STATUS_ALLOW_IP}" \
   httpErrorsDir="${HTTP_ERRORS_DIR}" \
   nginxProcessUser="${NGINX_PROCESS_USER}" \
   nginxRootDir="${NGINX_ROOT_DIR}" \

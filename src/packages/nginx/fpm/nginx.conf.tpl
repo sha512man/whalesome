@@ -1,5 +1,5 @@
-user {{ or .nginxProcessUser "www-data"}} {{ or .nginxProcessUser "www-data"}};
-worker_processes {{ or .workerProcesses "auto"}};
+user {{ or .nginxProcessUser "www-data" }} {{ or .nginxProcessUser "www-data" }};
+worker_processes {{ or .workerProcesses "auto" }};
 
 error_log /dev/stderr;
 
@@ -38,7 +38,7 @@ http {
         access_log /dev/stdout;
         error_log /dev/stderr;
 
-        root {{ or .nginxRootDir "/var/www/public"}};
+        root {{ or .nginxRootDir "/var/www/public" }};
         index  index.php index.html index.htm;
 
         location / {
@@ -61,13 +61,40 @@ http {
             root {{ .httpErrorsDir }};
         }
 
+{{ if or .fpmPingPath .fpmStatusPath }}
+        {{ if and .fpmPingPath .fpmStatusPath }}
+        location ~ ^({{ .fpmPingPath }}|{{ .fpmStatusPath }})$ {
+        {{ else if .fpmPingPath}}
+        location = {{ .fpmPingPath }} {
+        {{ else if .fpmStatusPath}}
+        location = {{ .fpmStatusPath }} {
+        {{ end }}
+            {{ if .dnsResolver }}
+            resolver {{ .dnsResolver }} valid=5s ipv6=off;
+            set $fpm_upstream "{{ or .fpmHost "php-fpm" }}:{{ or .fpmStatusListenPort "9000" }}";
+            fastcgi_pass $fpm_upstream;
+            {{ else }}
+            fastcgi_pass {{ or .fpmHost "php-fpm" }}:{{ or .fpmStatusListenPort "9000" }};
+            {{ end }}
+
+            {{ if .statusAllowIp }}
+            allow {{ .statusAllowIp }};
+            deny all;
+            {{ end }}
+
+            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+            fastcgi_param  SCRIPT_NAME      $fastcgi_script_name;
+            include        fastcgi_params;
+        }
+{{ end }}
+
         location ~ \.php$ {
             {{ if .dnsResolver }}
             resolver {{ .dnsResolver }} valid=5s ipv6=off;
-            set $fpm_upstream "{{ or .fpmHost "php-fpm"}}:{{ or .fpmPort "9000"}}";
+            set $fpm_upstream "{{ or .fpmHost "php-fpm" }}:{{ or .fpmPort "9000" }}";
             fastcgi_pass $fpm_upstream;
             {{ else }}
-            fastcgi_pass {{ or .fpmHost "php-fpm"}}:{{ or .fpmPort "9000"}};
+            fastcgi_pass {{ or .fpmHost "php-fpm" }}:{{ or .fpmPort "9000" }};
             {{ end }}
             fastcgi_index  index.php;
             fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
