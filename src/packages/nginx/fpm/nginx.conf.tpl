@@ -1,23 +1,17 @@
-# DO NOT REMOVE
-# e.g.: user www-data www-data;
-# whalesome.nginx.placeholders.process_user
+user {{ or .nginxProcessUser "www-data"}} {{ or .nginxProcessUser "www-data"}};
+worker_processes {{ or .workerProcesses "auto"}};
 
-# DO NOT REMOVE
-# whalesome.nginx.placeholders.worker_processes
-
-error_log  /dev/stderr;
+error_log /dev/stderr;
 
 pid /tmp/nginx.pid;
 
-# DO NOT REMOVE
-# whalesome.nginx.placeholders.worker_rlimit_no_file
+worker_rlimit_nofile {{ if .workerRlimitNoFile }}{{ .workerRlimitNoFile }}{{ else }}{{ .defaultConnections }}{{ end }};
 
 daemon off;
 
 events {
     use epoll;
-    # DO NOT REMOVE
-    # whalesome.nginx.placeholders.worker_connections
+    worker_connections {{ if .workerConnections }}{{ .workerConnections }}{{ else }}{{ .defaultConnections }}{{ end }};
     multi_accept on;
 }
 
@@ -44,8 +38,7 @@ http {
         access_log /dev/stdout;
         error_log /dev/stderr;
 
-        # DO NOT REMOVE
-        # whalesome.nginx.placeholders.server_root_dir
+        root {{ or .nginxRootDir "/var/www/public"}};
         index  index.php index.html index.htm;
 
         location / {
@@ -57,13 +50,25 @@ http {
             access_log off;
         }
 
-        # DO NOT REMOVE
-        # This is dynamically replaced during runtime
-        # whalesome.nginx.placeholders.static_http_errors
+        error_page   404  /404.html;
+        error_page   403  /403.html;
+        error_page   500  /500.html;
+        error_page   502  /502.html;
+        error_page   503  /503.html;
+        error_page   504  /504.html;
+
+        location ~ /(500|502|503|504|404|403).html$ {
+            root {{ .httpErrorsDir }};
+        }
 
         location ~ \.php$ {
-            # DO NOT REMOVE
-            # whalesome.nginx.placeholders.fastcgi_pass
+            {{ if .dnsResolver }}
+            resolver {{ .dnsResolver }} valid=5s ipv6=off;
+            set $fpm_upstream "{{ or .fpmHost "php-fpm"}}:{{ or .fpmPort "9000"}}";
+            fastcgi_pass $fpm_upstream;
+            {{ else }}
+            fastcgi_pass {{ or .fpmHost "php-fpm"}}:{{ or .fpmPort "9000"}};
+            {{ end }}
             fastcgi_index  index.php;
             fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
             fastcgi_param  SCRIPT_NAME      $fastcgi_script_name;
