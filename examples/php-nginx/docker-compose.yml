@@ -13,6 +13,9 @@ services:
       INIT_DEBUG: "3"
       FPM_PING_PATH: "/fpm-ping"
       FPM_STATUS_PATH: "/fpm-status"
+      # Replace this with a specific IP or CIDR if needed.
+      # You should not use "all" in production.
+      FPM_STATUS_ALLOWED_IPS: "all"
     volumes:
       - ./public:/var/www/public
     cap_drop: # Following the principle of least privilege.
