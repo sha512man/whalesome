@@ -13,7 +13,7 @@ Available envs:
 - `NGINX_PROCESS_USER` - Set custom process user (default is `www-data`)
 - `NGINX_ROOT_DIR` - Set custom nginx root dir (default is `/var/www/public`)
 - `RUN_AS` - Run main process as defined user (eg. `www-data`)
-- `STATUS_ALLOW_IP` - Set allowed IP address for ping and status path @see https://nginx.org/en/docs/http/ngx_http_access_module.html
+- `FPM_STATUS_ALLOWED_IPS` - Set allowed IP addresses for the status path @see https://nginx.org/en/docs/http/ngx_http_access_module.html
 - `WORKER_CONNECTIONS` - Set custom nginx worker connections (default is `4096`) @see https://nginx.org/en/docs/ngx_core_module.html#worker_connections
 - `WORKER_PROCESSES` - Set custom nginx worker processes (default is `auto`) @see https://nginx.org/en/docs/ngx_core_module.html#worker_processes
 - `WORKER_RLIMIT_NO_FILE` - Set custom nginx worker rlimit nofile (default is `4096`) @see https://nginx.org/en/docs/ngx_core_module.html#worker_rlimit_nofile
