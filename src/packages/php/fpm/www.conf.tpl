@@ -15,14 +15,14 @@ pm.max_children = {{ or .fpmPmMaxChildren "15" }}
 pm.start_servers = {{ or .fpmPmStartServers "2" }}
 pm.min_spare_servers = {{ or .fpmPmMinSpareServers "1" }}
 pm.max_spare_servers = {{ or .fpmPmMaxSpareServers "3" }}
-{{if .fpmPingPath }}
+{{ if .fpmPingPath }}
 ping.path = {{ .fpmPingPath }}
 ping.response = pong
 {{ end }}
-{{if .fpmStatusPath }}
+{{ if .fpmStatusPath }}
 pm.status_path = {{ .fpmStatusPath }}
 {{ end }}
-{{if .fpmStatusListenPort }}
+{{ if .fpmStatusListenPort }}
 pm.status_listen = {{ .fpmStatusListenPort }}
 {{ end }}
 access.log = {{ or .fpmAccessLog "/dev/stdout" }}
