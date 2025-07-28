@@ -1,7 +1,9 @@
-[www]
+[global]
 
 error_log = {{ or .fpmErrorLogDir "/dev/stderr" }}
 daemonize = no
+
+[www]
 
 user = {{ or .fpmRuntimeUser "www-data" }}
 group = {{ or .fpmRuntimeGroup "www-data" }}
@@ -13,9 +15,16 @@ pm.max_children = {{ or .fpmPmMaxChildren "15" }}
 pm.start_servers = {{ or .fpmPmStartServers "2" }}
 pm.min_spare_servers = {{ or .fpmPmMinSpareServers "1" }}
 pm.max_spare_servers = {{ or .fpmPmMaxSpareServers "3" }}
-
-ping.path = /ping
-
+{{ if .fpmPingPath }}
+ping.path = {{ .fpmPingPath }}
+ping.response = pong
+{{ end }}
+{{ if .fpmStatusPath }}
+pm.status_path = {{ .fpmStatusPath }}
+{{ end }}
+{{ if .fpmStatusListenPort }}
+pm.status_listen = {{ .fpmStatusListenPort }}
+{{ end }}
 access.log = {{ or .fpmAccessLog "/dev/stdout" }}
 
 chdir = {{ or .fpmRootDir "/var/www/public" }}

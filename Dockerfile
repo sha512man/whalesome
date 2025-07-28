@@ -7,7 +7,7 @@ WORKDIR /app
 COPY ./src/lib/tpl .
 
 # Build the Go app
-RUN go build -o main .
+RUN GOOS=linux GOARCH=amd64 go build -o main .
 
 # ==========
 FROM busybox
