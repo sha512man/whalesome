@@ -21,9 +21,9 @@ tpl /opt/whalesome/packages/php/fpm/php.ini.tpl \
   phpOpcacheValidateTimestamps="${PHP_OPCACHE_VALIDATE_TIMESTAMPS}" \
   phpOpcacheSaveComments="${PHP_OPCACHE_SAVE_COMMENTS}" \
   phpOpcacheJit="${PHP_OPCACHE_JIT}" \
-  phpOpcacheJitBufferSize="${PHP_OPCACHE_JIT_BUFFER_SIZE}" > "${PHP_INI_DIR}/conf.d/zzz-php.ini"
+  phpOpcacheJitBufferSize="${PHP_OPCACHE_JIT_BUFFER_SIZE}" > "${PHP_INI_DIR}/conf.d/whalesome-php.ini"
 
 if [ "${INIT_DEBUG}" -ge "3" ]; then
     echodt "DEBUG: print generated php.ini"
-    cat "${PHP_INI_DIR}/conf.d/zzz-php.ini"
+    cat "${PHP_INI_DIR}/conf.d/whalesome-php.ini"
 fi
