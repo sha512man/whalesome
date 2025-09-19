@@ -19,7 +19,9 @@ tpl /opt/whalesome/packages/php/fpm/php.ini.tpl \
   phpOpcacheInternedStringsBuffer="${PHP_OPCACHE_INTERNED_STRINGS_BUFFER}" \
   phpOpcacheMaxAcceleratedFiles="${PHP_OPCACHE_MAX_ACCELERATED_FILES}" \
   phpOpcacheValidateTimestamps="${PHP_OPCACHE_VALIDATE_TIMESTAMPS}" \
-  phpOpcacheSaveComments="${PHP_OPCACHE_SAVE_COMMENTS}" > "${PHP_INI_DIR}/conf.d/zzz-php.ini"
+  phpOpcacheSaveComments="${PHP_OPCACHE_SAVE_COMMENTS}" \
+  phpOpcacheJit="${PHP_OPCACHE_JIT}" \
+  phpOpcacheJitBufferSize="${PHP_OPCACHE_JIT_BUFFER_SIZE}" > "${PHP_INI_DIR}/conf.d/zzz-php.ini"
 
 if [ "${INIT_DEBUG}" -ge "3" ]; then
     echodt "DEBUG: print generated php.ini"
