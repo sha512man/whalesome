@@ -6,10 +6,10 @@ tpl /opt/whalesome/packages/php/fpm/php.ini.tpl \
   phpMaxExecutionTime="${PHP_MAX_EXECUTION_TIME}" \
   phpMaxInputTime="${PHP_MAX_INPUT_TIME}" \
   phpMemoryLimit="${PHP_MEMORY_LIMIT}" \
-  phpErrorReporting="{$PHP_ERROR_REPORTING}" \
+  phpErrorReporting="${PHP_ERROR_REPORTING}" \
   phpErrorLogDir="${PHP_ERROR_LOG_DIR}" \
   phpPostMaxSize="${PHP_POST_MAX_SIZE}" \
-  phpRootDir="{$PHP_ROOT_DIR}" \
+  phpRootDir="${PHP_ROOT_DIR}" \
   phpUploadMaxFilesize="${PHP_UPLOAD_MAX_FILESIZE}" \
   phpMaxFileUploads="${PHP_MAX_FILE_UPLOADS}" \
   phpDateTimezone="${PHP_DATE_TIMEZONE}" \
