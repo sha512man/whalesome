@@ -6,10 +6,10 @@ tpl /opt/whalesome/packages/php/fpm/php.ini.tpl \
   phpMaxExecutionTime="${PHP_MAX_EXECUTION_TIME}" \
   phpMaxInputTime="${PHP_MAX_INPUT_TIME}" \
   phpMemoryLimit="${PHP_MEMORY_LIMIT}" \
-  phpErrorReporting="{$PHP_ERROR_REPORTING}" \
+  phpErrorReporting="${PHP_ERROR_REPORTING}" \
   phpErrorLogDir="${PHP_ERROR_LOG_DIR}" \
   phpPostMaxSize="${PHP_POST_MAX_SIZE}" \
-  phpRootDir="{$PHP_ROOT_DIR}" \
+  phpRootDir="${PHP_ROOT_DIR}" \
   phpUploadMaxFilesize="${PHP_UPLOAD_MAX_FILESIZE}" \
   phpMaxFileUploads="${PHP_MAX_FILE_UPLOADS}" \
   phpDateTimezone="${PHP_DATE_TIMEZONE}" \
@@ -19,9 +19,11 @@ tpl /opt/whalesome/packages/php/fpm/php.ini.tpl \
   phpOpcacheInternedStringsBuffer="${PHP_OPCACHE_INTERNED_STRINGS_BUFFER}" \
   phpOpcacheMaxAcceleratedFiles="${PHP_OPCACHE_MAX_ACCELERATED_FILES}" \
   phpOpcacheValidateTimestamps="${PHP_OPCACHE_VALIDATE_TIMESTAMPS}" \
-  phpOpcacheSaveComments="${PHP_OPCACHE_SAVE_COMMENTS}" > "${PHP_INI_DIR}/conf.d/zzz-php.ini"
+  phpOpcacheSaveComments="${PHP_OPCACHE_SAVE_COMMENTS}" \
+  phpOpcacheJit="${PHP_OPCACHE_JIT}" \
+  phpOpcacheJitBufferSize="${PHP_OPCACHE_JIT_BUFFER_SIZE}" > "${PHP_INI_DIR}/conf.d/whalesome-php.ini"
 
 if [ "${INIT_DEBUG}" -ge "3" ]; then
     echodt "DEBUG: print generated php.ini"
-    cat "${PHP_INI_DIR}/conf.d/zzz-php.ini"
+    cat "${PHP_INI_DIR}/conf.d/whalesome-php.ini"
 fi

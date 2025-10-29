@@ -65,4 +65,6 @@ opcache.interned_strings_buffer = {{ or .phpOpcacheInternedStringsBuffer "32" }}
 opcache.max_accelerated_files = {{ or .phpOpcacheMaxAcceleratedFiles "32531" }}
 opcache.validate_timestamps = {{ or .phpOpcacheValidateTimestamps "Off" }}
 opcache.save_comments = {{ or .phpOpcacheSaveComments "Off" }}
+opcache.jit = {{ or .phpOpcacheJit "tracing" }}
+opcache.jit_buffer_size = {{ or .phpOpcacheJitBufferSize "128M" }}
 opcache.error_log = {{ or .phpErrorLogDir "/dev/stderr" }}
