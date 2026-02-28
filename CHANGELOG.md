@@ -7,3 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 2.4.0 - 2026-02-28
+### Added
+- Allow starting RUN_AS via su-exec
+### Changed
+- Replace sudo with su-exec for better sigterm handling
