@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 2.4.1 - 2026-02-28
+### Fixed
+- Use POSIX-compatible output redirection in sudo/su-exec checks
+
 ## 2.4.0 - 2026-02-28
 ### Added
 - Allow starting RUN_AS via su-exec
