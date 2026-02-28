@@ -6,6 +6,7 @@
 [ -z "${RUN_CUSTOM_SCRIPTS}" ] && RUN_CUSTOM_SCRIPTS="1"
 [ -z "${CUSTOM_SCRIPTS_PATH}" ] && CUSTOM_SCRIPTS_PATH="/opt/whalesome/user-init.d"
 [ -z "${INIT_DEBUG}" ] && INIT_DEBUG="0"
+[ -z "${USE_SU_EXEC}" ] && USE_SU_EXEC="0"
 
 mkdir -p "${APP_DIR}"
 cd "${APP_DIR}"
@@ -32,9 +33,15 @@ log "INFO: All init scripts completed" 2
 log "INFO: Starting service: ${*}" 1
 
 if [ -n "${RUN_AS}" ] ; then
+  if [ -n "${USE_SU_EXEC}" ] && [ "${USE_SU_EXEC}" = "1" ]; then
     log "INFO: executing: su-exec ${RUN_AS} ${*}" 3
 
     exec su-exec "${RUN_AS}" "${@}"
+  else
+    log "INFO: executing: sudo --user=${RUN_AS} --group=${RUN_AS} ${*}" 3
+
+    sudo --user="${RUN_AS}" --group="${RUN_AS}" "${@}"
+  fi
 else
     exec "${@}"
 fi
