@@ -7,6 +7,20 @@ level="${2}"
 
 [ -z "${level}" ] && level="0"
 
-if [ "${INIT_DEBUG}" -ge "${level}" ]; then
+init_debug="${INIT_DEBUG:-0}"
+
+case "${init_debug}" in
+  ''|*[!0-9]*)
+    init_debug="0"
+    ;;
+esac
+
+case "${level}" in
+  ''|*[!0-9]*)
+    level="0"
+    ;;
+esac
+
+if [ "${init_debug}" -ge "${level}" ]; then
   echodt "${message}"
 fi
