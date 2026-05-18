@@ -10,7 +10,7 @@
 [ -z "${USE_SETPRIV}" ] && USE_SETPRIV="0"
 
 mkdir -p "${APP_DIR}"
-cd "${APP_DIR}"
+cd "${APP_DIR}" || { echo "Failure to go ${APP_DIR}"; exit 1; }
 
 if [ -d "${CUSTOM_SCRIPTS_PATH}" ] && [ "${RUN_CUSTOM_SCRIPTS}" = "1" ]; then
     cp -r "${CUSTOM_SCRIPTS_PATH}/." "${INIT_DIR}"
