@@ -8,6 +8,11 @@ if [ -n "${RUN_AS}" ] ; then
         echodt "ERROR: su-exec package not found. Install it via 'pkg su-exec'"
         exit 1
     fi
+  elif [ -n "${USE_SETPRIV}" ] && [ "${USE_SETPRIV}" = "1" ]; then
+    if ! command -v setpriv >/dev/null 2>&1; then
+        echodt "ERROR: setpriv package not found. Install it via 'pkg util-linux'"
+        exit 1
+    fi
   else
     if ! command -v sudo >/dev/null 2>&1; then
         echodt "ERROR: sudo package not found. Install it via 'pkg sudo'"
