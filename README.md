@@ -36,6 +36,8 @@ And look [localhost:8000](http://localhost:8000)
 - `RUN_CUSTOM_SCRIPTS` - Set 0 to not run custom init scripts, _default is `1`_
 - `RUN_INIT_SCRIPTS` - Set 0 to not run init scripts, _default is `1`_
 - `USER` - Set user to create user with specific UID, group with specific GUI, homedir and start subprocess, eg: `www-data:501` (on Mac), `www-data:1000` (on Linux),  _default is empty_
+- `PRESERVE_EXISTING_USER` - Set to `1` to preserve an existing account instead of deleting it; the UID/GID are migrated to the requested values and files under `/` owned by the previous IDs are reassigned. Default is `0`.
+- `PRESERVE_HOME` - Set to `1` to keep the home directory when creating or migrating a user. Default is `0`.
 
 ## Rootless
 
