@@ -10,7 +10,7 @@
 [ -z "${USE_SETPRIV}" ] && USE_SETPRIV="0"
 
 mkdir -p "${APP_DIR}"
-cd "${APP_DIR}" || { echo "Failure to go ${APP_DIR}"; exit 1; }
+cd "${APP_DIR}" || { echo "Failed changing directory to ${APP_DIR}"; exit 1; }
 
 if [ -d "${CUSTOM_SCRIPTS_PATH}" ] && [ "${RUN_CUSTOM_SCRIPTS}" = "1" ]; then
     cp -r "${CUSTOM_SCRIPTS_PATH}/." "${INIT_DIR}"
@@ -23,7 +23,7 @@ if [ -n "${RUN_INIT_SCRIPTS}" ] && [ "${RUN_INIT_SCRIPTS}" = "1" ]; then
             log "INFO: run init script ${filename}" 2
 
             if ! sh "${filename}" ; then
-                echodt "ERROR: init script ${filename} exitted with non-zero code"
+                log "ERROR: init script ${filename} exitted with non-zero code" 1
                 exit 1
             fi
         fi
@@ -31,7 +31,7 @@ if [ -n "${RUN_INIT_SCRIPTS}" ] && [ "${RUN_INIT_SCRIPTS}" = "1" ]; then
 fi
 
 log "INFO: All init scripts completed" 2
-log "INFO: Starting service: ${*}" 1
+log "INFO: Executing command: ${*}" 1
 
 if [ -n "${RUN_AS}" ] ; then
   if [ -n "${USE_SU_EXEC}" ] && [ "${USE_SU_EXEC}" = "1" ]; then
