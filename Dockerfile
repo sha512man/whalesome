@@ -1,4 +1,4 @@
-FROM golang:1.26.3-alpine3.23 AS build
+FROM golang:1.27.1-alpine3.24 AS build
 
 LABEL maintainer="Dan Charousek <DanCharousek@gmail.com>"
 
@@ -10,7 +10,7 @@ COPY ./src/lib/tpl .
 RUN GOOS=linux GOARCH=amd64 go build -o main .
 
 # ==========
-FROM busybox:1.37.0
+FROM busybox:1.38.0
 
 COPY ./src /opt/whalesome
 COPY --from=build /app/main /opt/whalesome/bin/tpl
