@@ -1,4 +1,4 @@
-FROM golang:1.27.1-alpine3.24 AS build
+FROM golang:1.27.3-alpine3.24 AS build
 
 LABEL maintainer="Dan Charousek <DanCharousek@gmail.com>"
 
